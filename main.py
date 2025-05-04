@@ -1409,9 +1409,36 @@ async def enhanced_token_info_command(update: Update, context: ContextTypes.DEFA
     
     # Delete the loading message and send the final response
     await context.bot.delete_message(chat_id=update.effective_chat.id, message_id=loading_message.message_id)
-    await update.message.reply_text(response, parse_mode='Markdown', reply_markup=reply_markup)
+    await update.message.reply_text(response, parse_mode='Markdown', reply_markup=reply_markup) 
     
+# Add near the top of your main.py file
+import os
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
+# Simple HTTP request handler
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"Bot is running!")
+    
+    def log_message(self, format, *args):
+        # Suppress log messages
+        return
+
+# Function to start the server
+def start_server():
+    port = int(os.environ.get('PORT', 8080))
+    server = HTTPServer(('0.0.0.0', port), Handler)
+    server.serve_forever()
+
+# Start server in a background thread
+server_thread = threading.Thread(target=start_server, daemon=True)
+server_thread.start()
+
+# Your existing bot code continues below
 # main fuction
 
 def main() -> None:
