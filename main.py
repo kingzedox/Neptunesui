@@ -1,6 +1,7 @@
 import os
 import logging
 import requests
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,  # Changed from Application.builder()
@@ -11,7 +12,7 @@ from telegram.ext import (
     ContextTypes, 
     ConversationHandler
 )
-
+load_dotenv()
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
