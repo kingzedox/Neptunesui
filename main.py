@@ -1428,17 +1428,6 @@ class Handler(BaseHTTPRequestHandler):
         # Suppress log messages
         return
 
-# Function to start the server
-def start_server():
-    port = int(os.environ.get('PORT', 8080))
-    server = HTTPServer(('0.0.0.0', port), Handler)
-    server.serve_forever()
-
-# Start server in a background thread
-server_thread = threading.Thread(target=start_server, daemon=True)
-server_thread.start()
-
-# Your existing bot code continues below
 # main fuction
 
 def main() -> None:
